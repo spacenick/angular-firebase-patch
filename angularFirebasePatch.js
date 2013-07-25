@@ -53,7 +53,7 @@ angular.module('AngularFirebase', [])
 
 
   // Let's patch Firebase to wrap dat shit in Angular
-  Firebase.prototype =  _.extend(Firebase.prototype, {
+  Firebase.prototype =  angular.extend(Firebase.prototype, {
     onceAngular:function(eventName) {
       return FirebaseCaller.apply(this, ["once", "read", [eventName]]);
     },
