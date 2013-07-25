@@ -6,10 +6,10 @@ Firebase inside Angular world. Firebase.onAngular, Firebase.onceAngular, etc... 
 Obv checkout angularFire that is sick but I also needed some more freedom around Firebase in my Angular app.
 
 Supported :
-READ:
+* READ:
 - onceAngular : returns a promise resolving a snapshot
 - onAngular : returns a promise resolving a snapshot for the FIRST trigger + calls the callback you give it everytime
-WRITE:
+* WRITE:
 - setAngular : returns a firebase reference so you can do .name() and shit
 - pushAngular : same
 
