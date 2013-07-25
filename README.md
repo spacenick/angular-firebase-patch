@@ -43,6 +43,7 @@ ref.setAngular({my: "object"}).then(function(ref){
 ```
 
 **Firebase.pushAngular**
+```javascript
 var ref = new Firebase('https://myFirebase.firebaseIO.com/my/data/array');
 ref.pushAngular({my: "object", is:"a cool object"}).then(function(pushRef){
  // pushRef.data == {my: "object", is:"a cool object"}
@@ -52,3 +53,4 @@ ref.pushAngular({my: "object", is:"a cool object"}).then(function(pushRef){
  data.firebaseId = pushRef.name();
  $scope.dataSet.push(data);
 });
+```
