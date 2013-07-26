@@ -22,12 +22,12 @@ angular.module('AngularFirebase', [])
         }
       ];  
     } 
-    // Write mode : callback is just passed an error object (null if no error)
+    // Write mode
     else {
       defaultParams = [
         function(error) {
           angularWrap(function(){
-            if (callback) callback(error);
+            if (callback) callback(error, ref);
             if (error != null) defer.reject(error);
             else {
               if (functionToCall == "push") ref.data = params[0];
