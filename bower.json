@@ -1,0 +1,23 @@
+{
+  "name": "angular-firebase-patch",
+  "version": "0.0.2",
+  "homepage": "https://github.com/spacenick/angular-firebase-patch",
+  "authors": [
+    "Nicolas Kermarc <nicolas.kermarc@gmail.com>"
+  ],
+  "description": "Patch Firebase to wrap all methods into Angular Kingdom (and add promises too)",
+  "main": "angularFirebasePatch.js",
+  "keywords": [
+    "firebase",
+    "angular",
+    "patch"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
