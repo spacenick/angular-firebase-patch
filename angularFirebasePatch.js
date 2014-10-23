@@ -5,6 +5,12 @@ angular.module('AngularFirebase', [])
 
 	var FirebaseCaller = function(functionToCall, type, params, callback) {
 
+
+        // Create an array to hold our Firebase refs and clean them later on
+        if (!this.refsArray) {
+            this.refsArray = [];
+        }
+
 		var defer = $q.defer();
 		var defaultParams;
 		// keep a handy reference to ref
@@ -72,19 +78,11 @@ angular.module('AngularFirebase', [])
 
 	// Let's patch Firebase to wrap dat shit in Angular
 	Firebase.prototype =  angular.extend(Firebase.prototype, {
-		refsArray: [],
 		onceAngular: function(eventName) {
 			return FirebaseCaller.apply(this, ["once", "read", [eventName]]);
 		},
 		onAngular: function(eventName, callback) {
 			return FirebaseCaller.apply(this, ["on", "read", [eventName], callback]);
-		},
-		cleanListeners: function() {
-			var _this = this;
-			this.refsArray.forEach(function(refObject){
-				_this.off(refObject.type, refObject.fn, refObject.context);
-			});
-			return this;
 		},
 		pushAngular: function(data) {
 			return FirebaseCaller.apply(this, ["push", "write", [data]]);
@@ -94,7 +92,14 @@ angular.module('AngularFirebase', [])
 		},
 		removeAngular: function() {
 			return FirebaseCaller.apply(this, ["remove", "write", []]);
-		}
+		},
+        cleanListeners: function() {
+            var _this = this;
+            this.refsArray.forEach(function(refObject){
+                _this.off(refObject.type, refObject.fn, refObject.context);
+            });
+            return this;
+        }
 
 	});
 
