@@ -1,5 +1,5 @@
 angular.module('AngularFirebase', [])
-.run(function($timeout, $q){
+.run(['$timeout', '$q', function($timeout, $q){
 
 	var angularWrap = $timeout;
 
@@ -104,4 +104,4 @@ angular.module('AngularFirebase', [])
 	});
 
 
-});
+}]);
