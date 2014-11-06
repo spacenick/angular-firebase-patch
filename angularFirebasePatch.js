@@ -6,10 +6,10 @@ angular.module('AngularFirebase', [])
 	var FirebaseCaller = function(functionToCall, type, params, callback) {
 
 
-        // Create an array to hold our Firebase refs and clean them later on
-        if (!this.refsArray) {
-            this.refsArray = [];
-        }
+		// Create an array to hold our Firebase refs and clean them later on
+		if (!this.refsArray) {
+			this.refsArray = [];
+		}
 
 		var defer = $q.defer();
 		var defaultParams;
@@ -24,10 +24,12 @@ angular.module('AngularFirebase', [])
 					var args = arguments;
 					angularWrap(function(){
 						// Callback is for "on" events
-						if (callback) callback.apply(null, args);
+						if (callback) {
+							callback.apply(null, args);
+						}
 						defer.resolve(snapshot);
 					});
-				}
+				};
 			};
 
 			/// Generate a new fn to clear it later
@@ -51,10 +53,16 @@ angular.module('AngularFirebase', [])
 			defaultParams = [
 				function(error) {
 					angularWrap(function(){
-						if (callback) callback(error);
-						if (error != null) defer.reject(error);
+						if (callback) {
+							callback(error);
+						}
+						if (error != null) {
+							defer.reject(error);
+						}
 						else {
-							if (functionToCall == "push") ref.data = params[0];
+							if (functionToCall == "push") {
+								ref.data = params[0];
+							}
 							defer.resolve(ref);
 						}
 					});
@@ -66,6 +74,11 @@ angular.module('AngularFirebase', [])
 		// to .apply
 		if (params) {
 			defaultParams = params.concat(defaultParams);
+		}
+
+		// We're gonna provide as context (this) to clear listeners later
+		if (type === "read") {
+			defaultParams.push(this);
 		}
 
 		// This must be set by callers to the Firebase instance
@@ -93,13 +106,13 @@ angular.module('AngularFirebase', [])
 		removeAngular: function() {
 			return FirebaseCaller.apply(this, ["remove", "write", []]);
 		},
-        cleanListeners: function() {
-            var _this = this;
-            this.refsArray.forEach(function(refObject){
-                _this.off(refObject.type, refObject.fn, refObject.context);
-            });
-            return this;
-        }
+		cleanListeners: function() {
+			var _this = this;
+			this.refsArray.forEach(function(refObject){
+				_this.off(refObject.type, refObject.fn, refObject.context);
+			});
+			return this;
+		}
 
 	});
 
