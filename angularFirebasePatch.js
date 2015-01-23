@@ -39,6 +39,12 @@ angular.module('AngularFirebase', [])
 				readFn
 			];
 
+			// Add an error handler
+
+			defaultParams.push(function(error){
+				defer.reject(error);
+			});
+
 
 			// Keep that against the ref to clean it later
 			this.refsArray.push({
